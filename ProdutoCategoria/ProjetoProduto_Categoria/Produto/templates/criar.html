@@ -1,0 +1,50 @@
+{% block title %} { Criar Produtos } {% endblock %}
+
+{% block content %}
+<div>
+    <h4>{{ Produto }}</h4>
+    <form method="post">
+        {% csrf_token %}
+
+        <div>
+            <label for="nome">{{ label_nome }} *</label>
+            <input type="text" id="nome" name="nome"
+                   value="{% if produto %}{{ produto.nome }}{% endif %}" required>
+        </div>
+
+        <div>
+            <label for="preco">{{ label_preco }} *</label>
+            <input type="text" id="preco" name="preco"
+                   value="{% if produto %}{{ produto.preco }}{% endif %}" required>
+        </div>
+
+        <div>
+            <label for="estoque">{{ label_estoque }}</label>
+            <input type="text" id="estoque" name="estoque"
+                   value="{% if produto %}{{ produto.estoque }}{% endif %}">
+        </div>
+
+        <div>
+            <label for="descricao">{{ label_descricao }}</label>
+            <input type="text" id="descricao" name="descricao"
+                   value="{% if produto %} {{ produto.descricao}}{% endif %}">
+        </div>
+
+        <div>
+            <label for="categoria">{{ label_categoria }}</label>
+            <input type="text" id="categoria" name="categoria"
+                   value="{% if produto %}{{ produto.categoria }}{% endif %}">
+        </div>
+
+        <div>
+            <input type="checkbox" id="ativo" name="ativo"
+                   {% if produto and produto.ativo or not produto %}checked{% endif %}>
+            <label for="ativo">{{ label_ativo }}</label>
+        </div>
+
+        <div>
+            <button type="submit">Salvar</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
