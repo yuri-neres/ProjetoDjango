@@ -61,6 +61,7 @@
             <th>Nome</th>
             <th>Preço</th>
             <th>Quantidade</th>
+            <th>Status</th>
         </tr>
     </thead>
 
@@ -72,6 +73,7 @@
             <td>{{ produto.nome }}</td>
             <td>R$ {{ produto.preco }}</td>
             <td>{{ produto.estoque }}</td>
+            <td>{{ produto.ativo }}</td>
         </tr>
         {% empty %}
         <tr>
@@ -83,4 +85,5 @@
 </table>
 
 </body>
+
 </html>
