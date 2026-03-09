@@ -2,7 +2,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib import messages
 from .models import Produto
+from Categoria.models import Categoria
+
 # Create your views here.
+
+def home_produtos(request):
+    return render(request, 'home_produtos.html')
+
 
 def _get_produto_form_labels():
     """Retorna os verbose_name dos campos do formul?rio de Pessoa."""
@@ -32,39 +38,59 @@ def listar_produtos(request):
     return render(request, 'listar.html', context)
 
 def criar_produto(request):
-    if request.POST:
-        nome = request.POST.get('nome', '').strip()
-        preco = request.POST.get('preco', '').strip()
-        estoque = request.POST.get('estoque', '').strip() or None
-        descricao = request.POST.get('descricao') or None
-        categoria = request.POST.get('categoria', '').strip() or None
-        ativo = request.POST.get('ativo') == 'on'
+    if request.method == 'POST':
+        nome_digitado = request.POST.get('nome')
+        preco_digitado = request.POST.get('preco')
+        estoque_digitado = request.POST.get('estoque')
+        descricao_digitada = request.POST.get('descricao')
         
-        # Verificar se email j? existe
-        if Produto.objects.filter(nome=nome).exists():
-            messages.error(request, 'Este produto ja esta cadastrado.')
-            return render(request, 'criar.html', {'titulo': 'Nova Pessoa', **_get_produto_form_labels()})
+        categoria_id = request.POST.get('categoria') 
         
+        ativo_marcado = request.POST.get('ativo') == 'on' 
+
+        if not categoria_id:
+            lista_categorias = Categoria.objects.all()
+            contexto = {
+                'categorias': lista_categorias,
+                'erro': 'Por favor, selecione uma categoria obrigatória.',
+                'label_nome': 'Nome do Produto',
+                'label_preco': 'Preço',
+                'label_estoque': 'Quantidade em Estoque',
+                'label_descricao': 'Descrição do Produto',
+                'label_categoria': 'Categoria',
+                'label_ativo': 'Produto Ativo?',
+            }
+            return render(request, 'criar.html', contexto)
+
         try:
-            produto = Produto.objects.create(
-                nome=nome,
-                preco=preco,
-                estoque=estoque,
-                descricao=descricao,
-                categoria=categoria,
-                ativo=ativo
-            )
-            messages.success(request, f'Produto: "{produto.nome}" criado com sucesso!')
-            return redirect('detalhe.html', id=produto.id)
-        except Exception as e:
-            messages.error(request, f'Erro ao criar produto: {str(e)}')
-            return render(request, 'pessoas/form.html', {'titulo': 'Nova Pessoa', **_get_produto_form_labels()})
-    
-    context = {
-        'titulo': 'Nova Pessoa',
-        **_get_produto_form_labels(),
+            categoria_obj = Categoria.objects.get(id_categoria=categoria_id)
+        except Categoria.DoesNotExist:
+             return redirect('alguma_url_de_erro') 
+
+        Produto.objects.create(
+            nome=nome_digitado,
+            preco=preco_digitado,
+            estoque=estoque_digitado,
+            descricao=descricao_digitada,
+            categoria=categoria_obj,
+            ativo=ativo_marcado
+        )
+
+        return redirect('/produtos/')
+
+    lista_categorias = Categoria.objects.all()
+
+    contexto = {
+        'categorias': lista_categorias,
+        'label_nome': 'Nome do Produto',
+        'label_preco': 'Preço',
+        'label_estoque': 'Quantidade em Estoque',
+        'label_descricao': 'Descrição do Produto',
+        'label_categoria': 'Categoria',
+        'label_ativo': 'Produto Ativo?',
     }
-    return render(request, 'criar.html', context)
+
+    return render(request, 'criar.html', contexto)
 
 
 def editar_produto(request):

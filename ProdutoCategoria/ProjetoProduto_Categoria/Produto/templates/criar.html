@@ -1,44 +1,54 @@
-{% block title %} { Criar Produtos } {% endblock %}
+{% block title %} Criar Produto {% endblock %}
 
 {% block content %}
+{% if erro %}
+    <div style="color: red; font-weight: bold;">
+        {{ erro }}
+    </div>
+{% endif %}
 <div>
-    <h4>{{ Produto }}</h4>
+    <h4>{% if produto %}Editar {{ produto.nome }}{% else %}Novo Produto{% endif %}</h4>
     <form method="post">
         {% csrf_token %}
 
         <div>
             <label for="nome">{{ label_nome }} *</label>
-            <input type="text" id="nome" name="nome"
-                   value="{% if produto %}{{ produto.nome }}{% endif %}" required>
+            <input type="text" id="nome" name="nome" value="{{ produto.nome|default:'' }}" required>
         </div>
 
         <div>
             <label for="preco">{{ label_preco }} *</label>
-            <input type="text" id="preco" name="preco"
-                   value="{% if produto %}{{ produto.preco }}{% endif %}" required>
+            <input type="number" step="0.01" id="preco" name="preco" value="{{ produto.preco|default:'' }}" required>
         </div>
 
         <div>
             <label for="estoque">{{ label_estoque }}</label>
-            <input type="text" id="estoque" name="estoque"
-                   value="{% if produto %}{{ produto.estoque }}{% endif %}">
+            <input type="number" id="estoque" name="estoque" value="{{ produto.estoque|default:'' }}">
         </div>
 
         <div>
             <label for="descricao">{{ label_descricao }}</label>
-            <input type="text" id="descricao" name="descricao"
-                   value="{% if produto %} {{ produto.descricao}}{% endif %}">
+            <textarea id="descricao" name="descricao" rows="4">{{ produto.descricao|default:'' }}</textarea>
         </div>
 
         <div>
-            <label for="categoria">{{ label_categoria }}</label>
-            <input type="text" id="categoria" name="categoria"
-                   value="{% if produto %}{{ produto.categoria }}{% endif %}">
+            <label for="categoria">{{ label_categoria }} *</label>
+    
+            <select id="categoria" name="categoria" required>
+        
+            <option value="" selected>Selecione uma categoria...</option>
+        
+            {% for cat in categorias %}
+                <option value="{{ cat.pk }}">
+                    {{ cat.nome }}
+                </option>
+            {% endfor %}
+        
+        </select>
         </div>
 
         <div>
-            <input type="checkbox" id="ativo" name="ativo"
-                   {% if produto and produto.ativo or not produto %}checked{% endif %}>
+            <input type="checkbox" id="ativo" name="ativo" {% if produto.ativo or not produto %}checked{% endif %}>
             <label for="ativo">{{ label_ativo }}</label>
         </div>
 
