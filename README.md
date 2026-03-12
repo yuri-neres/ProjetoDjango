@@ -1,4 +1,4 @@
-# BOLSA FUTURO DIGITAL - BACK-END COM PYTHON
+# BOLSA FUTURO DIGITAL - BACKEND COM PYTHON
 ## Projeto Django: Sistema de Gestão de Produtos e de Categorias
 
 ### Integrantes do Grupo
