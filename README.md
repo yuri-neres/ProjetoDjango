@@ -1,5 +1,5 @@
-# Projeto Django
-## Sistema de Gestão de Produtos e de Categorias
+# BOLSA FUTURO DIGITAL - BACK-END COM PYTHON
+## Projeto Django: Sistema de Gestão de Produtos e de Categorias
 
 ### Integrantes do Grupo
 * Iandra Santos Lacerda
@@ -8,3 +8,5 @@
 * Yuri Lima Neres
 
 **Orientador**: Prof. Cláudio Rodolfo Sousa de Oliveira
+
+## Projeto Loja Virtual
