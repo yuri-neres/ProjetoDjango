@@ -97,7 +97,7 @@ def criar_categoria(request):
 ```
 
 **READ**: Listar categorias
-```
+```python
 def listar_categorias(request):
     categorias = Categoria.objects.all()
     meta = Categoria._meta
@@ -114,7 +114,7 @@ def listar_categorias(request):
 ```
 
 **UPDATE**: Editar categorias
-```
+```python
 def editar_categoria(request, id_categoria):
     categoria = get_object_or_404(Categoria, id_categoria=id_categoria)
     erro = None
@@ -145,7 +145,7 @@ def editar_categoria(request, id_categoria):
 ```
 
 **DELETE**: Excluir categorias
-```
+```python
 def excluir_categoria(request, id_categoria):
     # Busca usando o campo id_categoria que você definiu no models
     categoria = get_object_or_404(Categoria, id_categoria=id_categoria)
@@ -159,7 +159,7 @@ def excluir_categoria(request, id_categoria):
 
 ### Produto
 **CREATE**: Criação de produto
-```
+```python
 def criar_produto(request):
     if request.method == 'POST':
         nome_digitado = request.POST.get('nome')
@@ -217,7 +217,7 @@ def criar_produto(request):
 ```
 
 **READ**: Listar produto(s)
-```
+```python
 def listar_produtos(request):
     produtos = Produto.objects.all()
     meta = Produto._meta
@@ -232,7 +232,7 @@ def listar_produtos(request):
     return render(request, 'listar.html', context)
 ```
 **Detalhar produtos:**
-```
+```python
 def detalhar_produto(request, id):
     produto = Produto.objects.get(id=id)
     meta = Produto._meta
@@ -250,7 +250,7 @@ def detalhar_produto(request, id):
 ```
 
 **UPDATE**: Editar produto
-```
+```python
 def editar_produto(request, id):
     produto = get_object_or_404(Produto, id=id)
     lista_categorias = Categoria.objects.all()
@@ -297,7 +297,7 @@ def editar_produto(request, id):
 ```
 
 **DELETE**: Excluir produto
-```
+```python
 def excluir_produto(request, id):
     produto = get_object_or_404(Produto, id=id)
     
