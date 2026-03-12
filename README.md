@@ -1,4 +1,4 @@
-# BOLSA FUTURO DIGITAL - BACKEND COM PYTHON
+# BOLSA FUTURO DIGITAL - BACKEND COM PYTHON 🐍
 ## Projeto Django: Sistema de Gestão de Produtos e de Categorias
 
 ### Integrantes do Grupo
@@ -11,14 +11,14 @@
 
 ## Projeto Loja Virtual
 
-### 1. Requisitos Técnicos Obrigatórios: Modelagem
-1º Modelo: Categoria
+### 🛍 1. Requisitos Técnicos Obrigatórios: Modelagem
+**Categoria**
 * id_categoria = models.AutoField(unique=True, primary_key=True)
 * nome = models.CharField(max_length=255, null=False, blank=False, unique = True)
 * descricao = models.TextField(blank = True, null = True)
 * ativo = models.BooleanField(default=True)
 
-2º Modelo: Produto
+**Produto**
 * id = models.AutoField(unique=True, primary_key=True)
 * nome = models.CharField(max_length=255)
 * descricao = models.TextField()
