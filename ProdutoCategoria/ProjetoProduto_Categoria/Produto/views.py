@@ -1,6 +1,5 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.contrib import messages
 from .models import Produto
 from Categoria.models import Categoria
 
@@ -8,21 +7,6 @@ from Categoria.models import Categoria
 
 def home_produtos(request):
     return render(request, 'home_produtos.html')
-
-
-def _get_produto_form_labels():
-    """Retorna os verbose_name dos campos do formul?rio de Pessoa."""
-    meta = Produto._meta
-    return {
-        'label_nome': meta.get_field('nome').verbose_name,
-        'label_descricao': meta.get_field('descricao').verbose_name,
-        'label_preco': meta.get_field('preco').verbose_name,
-        'label_estoque': meta.get_field('estoque').verbose_name,
-        'label_categoria': meta.get_field('categoria').verbose_name,
-        'label_data_criacao': meta.get_field('data_criacao').verbose_name,
-        'label_ativo': meta.get_field('ativo').verbose_name,
-    }
-
 
 def listar_produtos(request):
     produtos = Produto.objects.all()
