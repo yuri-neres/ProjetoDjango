@@ -9,9 +9,9 @@
 
 **Orientador**: Prof. Cláudio Rodolfo Sousa de Oliveira
 
-## Projeto Loja Virtual
+## 🛍 Projeto Loja Virtual
 
-### 🛍 1. Requisitos Técnicos Obrigatórios: Modelagem
+### 1. Requisitos Técnicos Obrigatórios: Modelagem
 **Categoria**
 * id_categoria = models.AutoField(unique=True, primary_key=True)
 * nome = models.CharField(max_length=255, null=False, blank=False, unique = True)
