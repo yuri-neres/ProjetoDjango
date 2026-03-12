@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
 from .models import Produto
 from Categoria.models import Categoria
@@ -77,11 +77,59 @@ def criar_produto(request):
     return render(request, 'criar.html', contexto)
 
 
-def editar_produto(request):
-    HttpResponse
+def editar_produto(request, id):
+    produto = get_object_or_404(Produto, id=id)
+    lista_categorias = Categoria.objects.all()
+    erro = None
 
-def excluir_produto(request):
-    HttpResponse
+    if request.method == 'POST':
+        nome_digitado = request.POST.get('nome')
+        preco_digitado = request.POST.get('preco')
+        estoque_digitado = request.POST.get('estoque')
+        descricao_digitada = request.POST.get('descricao')
+        id_categoria_selecionada = request.POST.get('categoria')
+        ativo_marcado = request.POST.get('ativo') == 'on'
+
+        if Produto.objects.filter(nome=nome_digitado).exclude(id=id).exists():
+            erro = 'Já existe um produto cadastrado com este nome.'
+        else:
+            try:
+                categoria_obj = Categoria.objects.get(id_categoria=id_categoria_selecionada)
+                produto.nome = nome_digitado
+                produto.preco = preco_digitado
+                produto.estoque = estoque_digitado
+                produto.descricao = descricao_digitada
+                produto.categoria = categoria_obj
+                produto.ativo = ativo_marcado
+                produto.save()
+                
+                return redirect('/produtos/listar/')
+            except Categoria.DoesNotExist:
+                erro = 'A categoria selecionada é inválida.'
+
+    contexto = {
+        'produto': produto,
+        'categorias': lista_categorias,
+        'label_nome': 'Nome do Produto',
+        'label_preco': 'Preço (R$)',
+        'label_estoque': 'Quantidade em Estoque',
+        'label_descricao': 'Descrição',
+        'label_categoria': 'Categoria',
+        'label_ativo': 'Produto Ativo?',
+        'erro': erro,
+    }
+
+    return render(request, 'editar.html', contexto)
+
+
+def excluir_produto(request, id):
+    produto = get_object_or_404(Produto, id=id)
+    
+    if request.method == 'POST':
+        produto.delete()
+        return redirect('/produtos/listar/')
+        
+    return render(request, 'excluir.html', {'produto': produto})
 
 def detalhar_produto(request, id):
     produto = Produto.objects.get(id=id)

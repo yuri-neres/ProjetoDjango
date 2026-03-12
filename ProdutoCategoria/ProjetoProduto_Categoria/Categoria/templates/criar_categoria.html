@@ -1,40 +1,129 @@
-{% block title %} Criar Produto {% endblock %}
+{% block title %} Criar Categoria {% endblock %}
 
 {% block content %}
-{% if erro %}
-    <div style="color: red; font-weight: bold;">
-        {{ erro }}
-    </div>
-{% endif %}
-<div>
-    <h4>{% if produto %}Editar {{ produto.nome }}{% else %}Novo Produto{% endif %}</h4>
-    <form method="post">
+<style>
+    /* Estes estilos garantem que a tela de Criar fique idêntica à de Editar */
+    .page-title {
+        text-align: center;
+        color: #2c3e50;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .form-container {
+        font-family: Arial, Helvetica, sans-serif;
+        background: white;
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 8px;
+        color: #333;
+    }
+
+    input[type="text"], textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .checkbox-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .checkbox-container input {
+        transform: scale(1.2);
+    }
+
+    .checkbox-container label {
+        margin-bottom: 0;
+        font-weight: normal;
+    }
+
+    .botoes {
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        text-decoration: none;
+        color: white;
+        background: #27ae60;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .btn:hover {
+        background: #2ecc71;
+    }
+
+    .btn-cancel {
+        background: #95a5a6;
+        margin-left: 10px;
+    }
+
+    .btn-cancel:hover {
+        background: #7f8c8d;
+    }
+
+    .mensagem-erro {
+        color: #e74c3c;
+        background: #fadbd8;
+        padding: 10px;
+        border-radius: 4px;
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+</style>
+
+<h1 class="page-title">Nova Categoria</h1>
+
+<div class="form-container">
+    {% if erro %}
+        <div class="mensagem-erro">{{ erro }}</div>
+    {% endif %}
+
+    <form method="POST">
         {% csrf_token %}
 
-        <div>
+        <div class="form-group">
             <label for="nome">{{ label_nome }} *</label>
-            <input type="text" id="nome" name="nome" value="{{ produto.nome|default:'' }}" required>
+            <input type="text" id="nome" name="nome" value="{{ categoria.nome|default:'' }}" required>
         </div>
 
-        <div>
+        <div class="form-group">
             <label for="descricao">{{ label_descricao }} *</label>
-            <textarea id="descricao" name="descricao" rows="4">{{ produto.descricao|default:'' }} </textarea> 
+            <textarea id="descricao" name="descricao" rows="4">{{ categoria.descricao|default:'' }}</textarea> 
         </div>
 
-        <div>
-            <input type="checkbox" id="ativo" name="ativo" {% if categoria.ativo or not categoria %}checked{% endif %} required>
+        <div class="form-group checkbox-container">
+            <input type="checkbox" id="ativo" name="ativo" {% if categoria.ativo or not categoria %}checked{% endif %}>
             <label for="ativo">{{ label_ativo }}</label>
         </div>
 
-        <div>
-            <button type="submit">Salvar</button>
+        <div class="botoes">
+            <button type="submit" class="btn">Salvar</button>
+            <a href="/categorias/" class="btn btn-cancel">Cancelar</a>
         </div>
-    </form>
-</div>
-
-<div>
-    <form action="/categorias">
-        <button type="submit">Cancelar</button>
     </form>
 </div>
 {% endblock %}

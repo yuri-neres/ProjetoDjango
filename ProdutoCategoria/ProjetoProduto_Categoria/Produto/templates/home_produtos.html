@@ -1,26 +1,60 @@
-{% block title %} Produtos: {% endblock %}
+{% block title %} Menu de Produtos {% endblock %}
 
-<h1>Opções:</h1>
-<h2><form action="criar/">
-    <button type="submit">Criar Produto</button>
-</form></h2>
+{% block content %}
+<style>
+    .page-title {
+        text-align: center;
+        color: #2c3e50;
+        font-family: Arial, Helvetica, sans-serif;
+        margin-bottom: 30px;
+        margin-top: 40px;
+    }
 
-<h2><form action="categorias/">
-    <button type="submit">Editar Produto</button>
-</form></h2>
+    .menu-container {
+        font-family: Arial, Helvetica, sans-serif;
+        background: white;
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 40px 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 15px; 
+    }
 
-<h2><form action="listar/">
-    <button type="submit">Listar Produtos</button>
-</form></h2>
+    .btn-menu {
+        display: block; 
+        padding: 15px 20px;
+        text-decoration: none;
+        color: white;
+        border-radius: 4px;
+        font-size: 16px;
+        font-weight: bold;
+        transition: background 0.2s;
+    }
 
-<h2><form action="categorias/">
-    <button type="submit">Excluir Produto</button>
-</form></h2>
+    .btn-criar { background: #27ae60; }
+    .btn-criar:hover { background: #2ecc71; }
+    .btn-listar { background: #3498db; }
+    .btn-listar:hover { background: #2980b9; }
+    .btn-retornar {
+        background: #95a5a6;
+        margin-top: 15px;
+    }
+    .btn-retornar:hover { background: #7f8c8d; }
+</style>
 
-<br>
+<h1 class="page-title">Gerenciar Produtos</h1>
 
-<div>
-    <form action="/">
-        <button type="submit">Retornar</button>
-    </form>
+<div class="menu-container">
+    
+    <a href="/produtos/criar/" class="btn-menu btn-criar">+ Criar Produto</a>
+    
+    <a href="/produtos/listar/" class="btn-menu btn-listar">Listar Produtos</a>
+    
+    <a href="/" class="btn-menu btn-retornar">Retornar</a>
+
 </div>
+{% endblock %}

@@ -2,94 +2,130 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Lista de Produtos</title>
+    <title>Lista de Categorias</title>
 
     <style>
-        body{
+        body {
             font-family: Arial, Helvetica, sans-serif;
             background: #f4f4f4;
             margin: 40px;
         }
 
-        h1{
+        h1 {
             text-align: center;
+            color: #2c3e50;
         }
 
-        table{
+        .table-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        table {
             width: 100%;
             border-collapse: collapse;
             background: white;
         }
 
-        th, td{
+        th, td {
             padding: 12px;
             border: 1px solid #ddd;
             text-align: center;
         }
 
-        th{
+        th {
             background: #2c3e50;
             color: white;
         }
 
-        tr:hover{
+        tr:hover {
             background: #f1f1f1;
         }
 
-        .btn{
-            padding: 6px 12px;
+        /* --- ESTILOS DOS BOTÕES --- */
+        .btn {
+            display: inline-block;
+            padding: 8px 15px;
+            margin: 3px 5px;
             text-decoration: none;
             color: white;
             background: #3498db;
             border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
         }
 
-        .btn-delete{
-            background: #e74c3c;
-        }
+        .btn:hover { background: #2980b9; }
 
+        .btn-delete { background: #e74c3c; }
+        .btn-delete:hover { background: #c0392b; }
+
+        .btn-return { background: #95a5a6; font-size: 16px; }
+        .btn-return:hover { background: #7f8c8d; }
+
+        .btn-create { background: #27ae60; margin-bottom: 15px; }
+        .btn-create:hover { background: #2ecc71; }
+
+        .actions-container {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
 
-<h1>Lista de Produtos</h1>
+<h1>Lista de Categorias</h1>
 
-<table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>descricao</th>
-            <th>Status</th>
-        </tr>
-    </thead>
+<div class="table-container">
+    
+    <a href="/categorias/criar/" class="btn btn-create">+ Nova Categoria</a>
 
-    <tbody>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
 
-        {% for categoria in categorias %}
-        <tr>
-            <td>{{ categoria.id_categoria }}</td>
-            <td>{{ categoria.nome }}</td>
-            <td>{{ categoria.descricao }}</td>
-            <td>{{ categoria.ativo }}</td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="4">Nenhuma categoria cadastrada</td>
-        </tr>
-        {% endfor %}
+        <tbody>
+            {% for categoria in categorias %}
+            <tr>
+                <td>{{ categoria.id_categoria }}</td>
+                <td>{{ categoria.nome }}</td>
+                <td>{{ categoria.descricao }}</td>
+                <td>
+                    {% if categoria.ativo %}
+                        <span style="color: green; font-weight: bold;">Ativo</span>
+                    {% else %}
+                        <span style="color: red; font-weight: bold;">Inativo</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="/categorias/editar/{{ categoria.id_categoria }}" class="btn">Editar</a>
+                    
+                    <a href="/categorias/excluir/{{ categoria.id_categoria }}" class="btn btn-delete">Excluir</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">Nenhuma categoria cadastrada</td> 
+            </tr>
+            {% endfor %}
 
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>
 
-    <br>
-
-    <div>
-        <form action="/categorias">
-            <button type="submit">Retornar</button>
-        </form>
-    </div>
+<div class="actions-container">
+    <a href="/categorias/" class="btn btn-return">Retornar</a>
+</div>
 
 </body>
-
 </html>

@@ -1,10 +1,65 @@
 {% block title %} Página Inicial {% endblock %}
 
-<h1>Opções:</h1>
-<h2><form action="produtos/">
-    <button type="submit">Produtos</button>
-</form></h2>
+{% block content %}
+<style>
+    .page-title {
+        text-align: center;
+        color: #2c3e50;
+        font-family: Arial, Helvetica, sans-serif;
+        margin-bottom: 30px;
+        margin-top: 50px;
+    }
 
-<h2><form action="categorias/">
-    <button type="submit">Categorias</button>
-</form></h2>
+    .menu-container {
+        font-family: Arial, Helvetica, sans-serif;
+        background: white;
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 50px 30px;
+        border-radius: 8px;
+        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .btn-menu {
+        display: block; 
+        padding: 18px 20px;
+        text-decoration: none;
+        color: white;
+        border-radius: 6px;
+        font-size: 18px;
+        font-weight: bold;
+        transition: transform 0.1s, background 0.2s;
+    }
+
+    .btn-menu:active {
+        transform: scale(0.98);
+    }
+
+    .btn-produtos { 
+        background: #3498db;
+    }
+    .btn-produtos:hover { 
+        background: #2980b9; 
+    }
+
+    .btn-categorias { 
+        background: #27ae60;
+    }
+    .btn-categorias:hover { 
+        background: #2ecc71; 
+    }
+</style>
+
+<h1 class="page-title">Sistema de Gerenciamento</h1>
+
+<div class="menu-container">
+    
+    <a href="/produtos/" class="btn-menu btn-produtos">Painel de Produtos</a>
+    
+    <a href="/categorias/" class="btn-menu btn-categorias">Painel de Categorias</a>
+
+</div>
+{% endblock %}

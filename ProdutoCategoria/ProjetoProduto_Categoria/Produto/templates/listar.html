@@ -36,8 +36,10 @@
             background: #f1f1f1;
         }
 
-        .btn{
+        .btn {
+            display: inline-block;
             padding: 6px 12px;
+            margin: 3px 5px;
             text-decoration: none;
             color: white;
             background: #3498db;
@@ -77,6 +79,10 @@
             <td>{{ produto.estoque }}</td>
             <td>{{ produto.categoria }}</td>
             <td>{{ produto.ativo }}</td>
+            <td>
+                <a href="/produtos/editar/{{ produto.id }}" class="btn">Editar</a>
+                <a href="/produtos/excluir/{{ produto.id }}" class="btn btn-delete">Excluir</a>
+            </td>
         </tr>
         {% empty %}
         <tr>
