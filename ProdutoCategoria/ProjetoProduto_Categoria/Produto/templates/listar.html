@@ -65,7 +65,7 @@
             <th>Quantidade</th>
             <th>Categoria</th>
             <th>Status</th>
-            <th>Editar</th>
+            <th>Ações</th>
         </tr>
     </thead>
 
@@ -78,7 +78,13 @@
             <td>R$ {{ produto.preco }}</td>
             <td>{{ produto.estoque }}</td>
             <td>{{ produto.categoria }}</td>
-            <td>{{ produto.ativo }}</td>
+            <td>         
+                {% if produto.ativo %}
+                    <span style="color: green; font-weight: bold;">Ativo</span>
+                {% else %}
+                    <span style="color: red; font-weight: bold;">Inativo</span>
+                {% endif %}
+            </td>
             <td>
                 <a href="/produtos/editar/{{ produto.id }}" class="btn">Editar</a>
                 <a href="/produtos/excluir/{{ produto.id }}" class="btn btn-delete">Excluir</a>
