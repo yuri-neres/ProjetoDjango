@@ -73,10 +73,10 @@ ProjetoProduto_Categoria/
 * data_criacao = models.DateTimeField(auto_now_add=True)
 
 ### 2. Funcionalidade CRUD
-#### Categoria
+### Categoria
 
 **CREATE**: Criação de categorias
-```
+```python
 def criar_categoria(request):
     erro = None
 
@@ -157,7 +157,7 @@ def excluir_categoria(request, id_categoria):
     return render(request, 'excluir_categoria.html', {'categoria': categoria})
 ```
 
-#### Produto
+### Produto
 **CREATE**: Criação de produto
 ```
 def criar_produto(request):
