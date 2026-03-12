@@ -20,7 +20,7 @@ ProjetoProduto_Categoria/
 |   |   └── listar_categoria.html     # Renderiza o HTML para a função de listar categorias
 │   ├── migrations/
 │   ├── admin.py               # Configuração do admin
-│   ├── apps.py
+│   ├── apps.py                # Cria, configura e gerencia os aplicativos
 │   ├── models.py              # Modelos de dados
 │   ├── tests.py
 │   ├── urls.py                # Rotas da API
