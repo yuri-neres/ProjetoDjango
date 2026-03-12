@@ -50,7 +50,6 @@ ProjetoProduto_Categoria/
 │   └── wsgi.py            # Entrada para servidores WSGI.
 ├── .venv/             # Ambiente virtual
 ├── db.sqlite3         # Banco de dados SQLite
-├── 
 └── manage.py          # Executa comandos do Django.
 ```
 
@@ -74,8 +73,9 @@ ProjetoProduto_Categoria/
 * data_criacao = models.DateTimeField(auto_now_add=True)
 
 ### 2. Funcionalidade CRUD
-**Categoria**
-CREATE: Criação de categorias
+# Categoria
+
+**CREATE**: Criação de categorias
 ```
 def criar_categoria(request):
     erro = None
@@ -96,7 +96,7 @@ def criar_categoria(request):
             return redirect('/categorias')
 ```
 
-READ: Listar categorias
+**READ**: Listar categorias
 ```
 def listar_categorias(request):
     categorias = Categoria.objects.all()
@@ -113,7 +113,7 @@ def listar_categorias(request):
     return render(request, 'listar_categorias.html', context)
 ```
 
-UPDATE: Editar categorias
+**UPDATE**: Editar categorias
 ```
 def editar_categoria(request, id_categoria):
     categoria = get_object_or_404(Categoria, id_categoria=id_categoria)
@@ -144,7 +144,7 @@ def editar_categoria(request, id_categoria):
     return render(request, 'editar_categoria.html', contexto)
 ```
 
-DELETE: Excluir categorias
+**DELETE**: Excluir categorias
 ```
 def excluir_categoria(request, id_categoria):
     # Busca usando o campo id_categoria que você definiu no models
@@ -157,8 +157,8 @@ def excluir_categoria(request, id_categoria):
     return render(request, 'excluir_categoria.html', {'categoria': categoria})
 ```
 
-**Produto**
-CREATE: Criação de produto
+# Produto
+**CREATE**: Criação de produto
 ```
 def criar_produto(request):
     if request.method == 'POST':
@@ -216,7 +216,7 @@ def criar_produto(request):
     return render(request, 'criar.html', contexto)
 ```
 
-READ: Listar produto(s)
+**READ**: Listar produto(s)
 ```
 def listar_produtos(request):
     produtos = Produto.objects.all()
@@ -249,7 +249,7 @@ def detalhar_produto(request, id):
     return render(request, 'detalhe.html', context)
 ```
 
-UPDATE: Editar produto
+**UPDATE**: Editar produto
 ```
 def editar_produto(request, id):
     produto = get_object_or_404(Produto, id=id)
@@ -296,7 +296,7 @@ def editar_produto(request, id):
     return render(request, 'editar.html', contexto)
 ```
 
-DELETE: Excluir produto
+**DELETE**: Excluir produto
 ```
 def excluir_produto(request, id):
     produto = get_object_or_404(Produto, id=id)
